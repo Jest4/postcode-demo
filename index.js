@@ -1,4 +1,17 @@
 export const handler = async (event) => {
+
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "http://127.0.0.1:5173",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Methods": "OPTIONS,POST"
+            },
+            body: JSON.stringify({})
+        };
+    }
+
     let body;
     try {
         body = event.body ? JSON.parse(event.body) : {};
