@@ -3,7 +3,7 @@ Based on the contents of Question.md from the interview.
 - the URL https://postcode.estany.ca/ hosts a basic react frontend (built using vite), served by a cloudfront distribution from an s3 bucket
 - ./index.js is served via lambda (manually deployed), for local, local.js wraps it.
 - The setup instructions below are a bit convoluted because the domain for the post request is hardcoded to match the cloudfront distribution (line 12 of frontend/src/App.jsx, replaced with the sed command for local execution)
-- The lambda is unauthenticated, since the demo will be shortlived and there are no exposed resources, the lambda provides significant in-built security.
+- The lambda is unauthenticated, since the demo will be shortlived and there are no exposed resources, the lambda provides sufficient in-built security.
 - The prefixToProvinceMap is a js object because they allow ~O(1) lookup.
 
 
