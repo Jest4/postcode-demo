@@ -38,35 +38,9 @@ The application validates Canadian postal codes in the format `A1A 1A1` (letter-
 - Modern JavaScript (ES modules)
 - Environment-based configuration system
 
-## Project Structure
-
-```
-├── index.js              # Backend serverless function
-├── local.js              # Local server wrapper for index.js
-├── openapi.yaml          # OpenAPI/Swagger API specification
-├── api-docs.html         # Interactive API documentation with Swagger UI
-├── Question.md           # Original problem statement
-├── tests/                # Test files for the application
-└── frontend/             # React frontend application
-    ├── public/           # Static assets
-    ├── src/              # React source code
-    │   ├── App.jsx       # Main React component
-    │   └── assets/       # Frontend assets
-    ├── package.json      # Frontend dependencies
-    ├── vite.config.js    # Vite configuration
-    └── src/config.js     # Environment-specific configuration
-```
-
-## Configuration System
-
-The frontend uses an environment-aware configuration system that automatically selects the appropriate API endpoint based on the current environment:
-
-- In development mode, it uses `http://localhost:3000/api/postcode`
-- In production mode, it uses `https://postcode.estany.ca/api/postcode`
-
-This is managed through the `src/config.js` file and Vite's environment variables (`import.meta.env.MODE`), eliminating the need to manually modify URLs when switching between environments.
-
 ## Getting Started
+
+Launch the backend and the frontend:
 
 ### Backend Setup
 
@@ -103,15 +77,44 @@ In a separate terminal from the backend,
    ```bash
    npm run dev
    ```
-4. For deployable build:
+For deployable build, files will be located in frontend/dist/
    ```bash
    npm run build
    ```
+
+## Project Structure
+
+```
+├── index.js              # Backend serverless function
+├── local.js              # Local server wrapper for index.js
+├── openapi.yaml          # OpenAPI/Swagger API specification
+├── api-docs.html         # Interactive API documentation with Swagger UI
+├── Question.md           # Original problem statement
+├── tests/                # Test files for the application
+└── frontend/             # React frontend application
+    ├── public/           # Static assets
+    ├── src/              # React source code
+    │   ├── App.jsx       # Main React component
+    │   └── assets/       # Frontend assets
+    ├── package.json      # Frontend dependencies
+    ├── vite.config.js    # Vite configuration
+    └── src/config.js     # Environment-specific configuration
+```
+
+## Configuration System
+
+The frontend uses an environment-aware configuration system that automatically selects the appropriate API endpoint based on the current environment:
+
+- In development mode, it uses `http://localhost:3000/api/postcode`
+- In production mode, it uses `https://postcode.estany.ca/api/postcode`
+
+This is managed through the `src/config.js` file and Vite's environment variables (`import.meta.env.MODE`), eliminating the need to manually modify URLs when switching between environments.
 
 ### Testing
 To run the test suite, execute the following command from the project root:
 
 ```bash
+npm install
 npm test
 ```
 
