@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { config } from './config.js'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
@@ -9,7 +10,9 @@ function App() {
   const handleSubmit = async () => {
     try {
       setLoading(true)
-      const endpoint = 'https://postcode.estany.ca/api/postcode'
+      // Get the endpoint based on whether we're in development or production mode
+      const mode = import.meta.env.MODE || 'development'
+      const endpoint = config[mode].apiEndpoint
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
