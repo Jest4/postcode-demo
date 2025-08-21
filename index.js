@@ -44,7 +44,7 @@ export const handler = async (event) => {
     return response;
 };
 
-const prefixToProvinceMap = {
+export const prefixToProvinceMap = {
     'K': 'ON',
     'L': 'ON',
     'M': 'ON',
@@ -59,12 +59,12 @@ const prefixToProvinceMap = {
     'X1A': 'NT'
 };
 
-function isValidPostalCodeFormat(postalCode) {
+export function isValidPostalCodeFormat(postalCode) {
     const postalCodeRegex = /^[A-Za-z][0-9][A-Za-z]\s[0-9][A-Za-z][0-9]$/;
     return postalCodeRegex.test(postalCode);
 }
 
-function province_for(postalCode) {
+export function province_for(postalCode) {
     // Convert to uppercase for consistency
     postalCode = postalCode.toUpperCase();
 
@@ -88,7 +88,7 @@ function province_for(postalCode) {
     return false;
 }
 
-function valid_for(postalCode, provinceCode) {
+export function valid_for(postalCode, provinceCode) {
     // Check if postal code format is valid
     if (!isValidPostalCodeFormat(postalCode)) {
         return false;
@@ -101,7 +101,7 @@ function valid_for(postalCode, provinceCode) {
     return matchedProvince === provinceCode;
 }
 
-function checkPostalCode(postalCode) {
+export function checkPostalCode(postalCode) {
     // Get the province for the postal code
     const matchedProvince = province_for(postalCode);
     // If a province is matched and the postal code is valid for that province, return the province

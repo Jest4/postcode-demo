@@ -1,5 +1,5 @@
-const http = require('http');
-const { handler } = require('./index.js');
+import http from 'http';
+import { handler } from './index.js';
 
 const server = http.createServer(async (req, res) => {
     if (req.method === 'POST' && req.url === '/api/postcode') {
