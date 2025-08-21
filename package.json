@@ -1,0 +1,14 @@
+{
+  "name": "capintel",
+  "version": "1.0.0",
+  "description": "Postal code validation service",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "local": "node local.js"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0"
+  }
+}
