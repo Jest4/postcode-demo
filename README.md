@@ -36,6 +36,7 @@ The application validates Canadian postal codes in the format `A1A 1A1` (letter-
 - React 19.x
 - Vite 7.x build tool
 - Modern JavaScript (ES modules)
+- Environment-based configuration system
 
 ## Project Structure
 
@@ -52,8 +53,18 @@ The application validates Canadian postal codes in the format `A1A 1A1` (letter-
     │   ├── App.jsx       # Main React component
     │   └── assets/       # Frontend assets
     ├── package.json      # Frontend dependencies
-    └── vite.config.js    # Vite configuration
+    ├── vite.config.js    # Vite configuration
+    └── src/config.js     # Environment-specific configuration
 ```
+
+## Configuration System
+
+The frontend uses an environment-aware configuration system that automatically selects the appropriate API endpoint based on the current environment:
+
+- In development mode, it uses `http://localhost:3000/api/postcode`
+- In production mode, it uses `https://postcode.estany.ca/api/postcode`
+
+This is managed through the `src/config.js` file and Vite's environment variables (`import.meta.env.MODE`), eliminating the need to manually modify URLs when switching between environments.
 
 ## Getting Started
 
@@ -63,6 +74,46 @@ The backend is designed as a serverless function. The main code is in `index.js`
 - `province_for`: Returns the province code for a given postal code
 - `valid_for`: Validates if a postal code belongs to a specific province
 - `checkPostalCode`: Combines the above functions to provide a complete validation
+
+To launch the API server locally (local.js which wraps the serverless function)
+   ```bash
+   npm run local
+   ```  
+
+   This will start the server on port 3000 and make the following available:
+   - API endpoint: http://localhost:3000/api/postcode
+   - Interactive API documentation: http://localhost:3000/docs
+   - OpenAPI specification: http://localhost:3000/openapi.yaml
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the frontend development server:
+   ```bash
+   npm run dev
+   ```
+4. For deployable build:
+   ```bash
+   npm run build
+   ```
+
+### Testing
+To run the test suite, execute the following command from the project root:
+
+```bash
+npm test
+```
+
+This will run all backend and API tests located in the `tests/` directory.
 
 ### API Documentation
 
@@ -83,49 +134,6 @@ You can visualize this specification using various tools:
    - Run: `swagger-ui-serve openapi.yaml`
 
 The API provides a single POST endpoint at `/api/postcode` that accepts a JSON body with a `postCode` field and returns the corresponding province or an error message.
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-
-3. Replace the hardcoded url `https://postcode.estany.ca/` in `App.jsx` in the frontend directory to match the domain from local.js
-    ```bash
-    sed -i '0,/https:\/\/postcode\.estany\.ca\//s//http:\/\/localhost:3000\//' src/App.jsx
-    ```
-
-4. Start the frontend development server:
-   ```bash
-   npm run dev
-   ```
-
-5. For local testing, fire up the API server
-    IN A NEW TERMINAL in the root folder
-   ```bash
-   node local.js
-   ```
-   OR from the frontend folder
-   ```bash
-   node ../local.js
-   ```
-   
-   This will start the server on port 3000 and make the following available:
-   - API endpoint: http://localhost:3000/api/postcode
-   - Interactive API documentation: http://localhost:3000/docs
-   - OpenAPI specification: http://localhost:3000/openapi.yaml
-
-5. For frontend build:
-   ```bash
-   npm run build
-   ```
 
 ## API Usage
 
