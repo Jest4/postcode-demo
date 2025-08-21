@@ -9,7 +9,7 @@ function App() {
   const handleSubmit = async () => {
     try {
       setLoading(true)
-      const endpoint = 'https://znctxfjysu67uecimpkggktwwi0vbavk.lambda-url.us-east-1.on.aws/'
+      const endpoint = 'https://postcode.estany.ca/api/postcode'
       const response = await fetch(endpoint, {
         method: 'POST',
         // Removing Content-Type header to avoid CORS issue
