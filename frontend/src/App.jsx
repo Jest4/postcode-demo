@@ -12,10 +12,9 @@ function App() {
       const endpoint = 'https://postcode.estany.ca/api/postcode'
       const response = await fetch(endpoint, {
         method: 'POST',
-        // Removing Content-Type header to avoid CORS issue
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ postCode: inputValue }),
       })
       
