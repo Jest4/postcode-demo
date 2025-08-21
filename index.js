@@ -1,3 +1,36 @@
+export const handler = async (event) => {
+    let body;
+    try {
+        body = event.body ? JSON.parse(event.body) : {};
+    } catch (error) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ message: "Invalid JSON in request body" })
+        };
+    }
+
+    const response = {};
+
+    // Check if postCode exists in the request body and is a string
+    if (!body.postCode || typeof body.postCode !== 'string') {
+        response.statusCode = 400;
+        response.body = JSON.stringify({ message: "postCode is required and must be a string" });
+        return response;
+    }
+
+    const result = checkPostalCode(body.postCode);
+
+    if (result) {
+        response.statusCode = 200;
+        response.body = JSON.stringify({ province: result });
+    } else {
+        response.statusCode = 404;
+        response.body = JSON.stringify({ message: "Invalid postal code or province not found" });
+    }
+
+    return response;
+};
+
 const prefixToProvinceMap = {
     'K': 'ON',
     'L': 'ON',
@@ -55,14 +88,8 @@ function valid_for(postalCode, provinceCode) {
     return matchedProvince === provinceCode;
 }
 
-// Export the functions
-module.exports = {
-    province_for,
-    valid_for
-};
-
 function checkPostalCode(postalCode) {
-     // Get the province for the postal code
+    // Get the province for the postal code
     const matchedProvince = province_for(postalCode);
     // If a province is matched and the postal code is valid for that province, return the province
     // otherwise return false (invalid post codes, unable to match province)
