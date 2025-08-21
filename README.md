@@ -87,6 +87,8 @@ To launch the API server locally (local.js which wraps the serverless function)
 
 ### Frontend Setup
 
+In a separate terminal from the backend,
+ 
 1. Navigate to the frontend directory:
    ```bash
    cd frontend
