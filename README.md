@@ -41,7 +41,11 @@ The application validates Canadian postal codes in the format `A1A 1A1` (letter-
 
 ```
 ├── index.js              # Backend serverless function
+├── local.js              # Local server wrapper for index.js
+├── openapi.yaml          # OpenAPI/Swagger API specification
+├── api-docs.html         # Interactive API documentation with Swagger UI
 ├── Question.md           # Original problem statement
+├── tests/                # Test files for the application
 └── frontend/             # React frontend application
     ├── public/           # Static assets
     ├── src/              # React source code
@@ -59,6 +63,26 @@ The backend is designed as a serverless function. The main code is in `index.js`
 - `province_for`: Returns the province code for a given postal code
 - `valid_for`: Validates if a postal code belongs to a specific province
 - `checkPostalCode`: Combines the above functions to provide a complete validation
+
+### API Documentation
+
+The API is documented using the OpenAPI (Swagger) specification in the `openapi.yaml` file. This provides a complete description of the API endpoints, request/response formats, and examples.
+
+You can visualize this specification using various tools:
+
+1. Online with Swagger Editor:
+   - Visit [Swagger Editor](https://editor.swagger.io/)
+   - Import the `openapi.yaml` file
+
+2. Using the included HTML documentation:
+   - Open `api-docs.html` in your browser
+   - This provides an interactive Swagger UI interface to explore and test the API
+
+3. Using Swagger UI CLI:
+   - Install Swagger UI: `npm install -g swagger-ui-cli`
+   - Run: `swagger-ui-serve openapi.yaml`
+
+The API provides a single POST endpoint at `/api/postcode` that accepts a JSON body with a `postCode` field and returns the corresponding province or an error message.
 
 ### Frontend Setup
 
@@ -83,7 +107,7 @@ The backend is designed as a serverless function. The main code is in `index.js`
    npm run dev
    ```
 
-5. For local testing, fire up the api
+5. For local testing, fire up the API server
     IN A NEW TERMINAL in the root folder
    ```bash
    node local.js
@@ -92,6 +116,11 @@ The backend is designed as a serverless function. The main code is in `index.js`
    ```bash
    node ../local.js
    ```
+   
+   This will start the server on port 3000 and make the following available:
+   - API endpoint: http://localhost:3000/api/postcode
+   - Interactive API documentation: http://localhost:3000/docs
+   - OpenAPI specification: http://localhost:3000/openapi.yaml
 
 5. For frontend build:
    ```bash

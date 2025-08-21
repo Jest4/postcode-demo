@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: PostCode Checker API
+  description: An API for validating Canadian postal codes and identifying their associated provinces/territories.
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+
+servers:
+  - url: https://postcode.estany.ca
+    description: Production server
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /api/postcode:
+    post:
+      summary: Validate postal code and get province
+      description: Validates a Canadian postal code and returns the corresponding province/territory.
+      operationId: validatePostCode
+      tags:
+        - Postal Code Validation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - postCode
+              properties:
+                postCode:
+                  type: string
+                  description: The Canadian postal code to validate in format A1A 1A1
+                  example: K1A 0A1
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  province:
+                    type: string
+                    description: The two-letter province/territory code
+                    example: ON
+        '400':
+          description: Bad request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: postCode is required and must be a string
+        '404':
+          description: Invalid postal code or province not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid postal code or province not found
+
+components:
+  schemas:
+    PostCodeRequest:
+      type: object
+      required:
+        - postCode
+      properties:
+        postCode:
+          type: string
+          description: The Canadian postal code to validate in format A1A 1A1
+          example: K1A 0A1
+    
+    ProvinceResponse:
+      type: object
+      properties:
+        province:
+          type: string
+          description: The two-letter province/territory code
+          example: ON
+    
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Invalid postal code or province not found
+
+tags:
+  - name: Postal Code Validation
+    description: Operations related to postal code validation and province identification
