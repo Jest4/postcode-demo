@@ -75,7 +75,7 @@ The backend is designed as a serverless function. The main code is in `index.js`
 
 3. Replace the hardcoded url `https://postcode.estany.ca/` in `App.jsx` in the frontend directory to match the domain from local.js
     ```bash
-    sed -i '0,/https:\/\/postcode\.estany\.ca\//s//http:\/\/locahost:3000\//' src/App.jsx
+    sed -i '0,/https:\/\/postcode\.estany\.ca\//s//http:\/\/localhost:3000\//' src/App.jsx
     ```
 
 4. Start the frontend development server:

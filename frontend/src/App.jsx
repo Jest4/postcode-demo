@@ -9,13 +9,13 @@ function App() {
   const handleSubmit = async () => {
     try {
       setLoading(true)
-      const endpoint = 'https://postcode.estany.ca/api/postcode'
+      const endpoint = 'http://localhost:3000/api/postcode'
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ postCode: inputValue }),
+        body: JSON.stringify({ postCode: inputValue.trim() }),
       })
       
       const data = await response.json()
@@ -34,12 +34,12 @@ function App() {
       
       {/* Input Component */}
       <div className="input-container">
-        <label htmlFor="dataInput">Enter your data:</label>
+        <label htmlFor="dataInput">Enter a postal code:</label>
         <textarea 
           id="dataInput"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Type your input here..."
+          placeholder="Type a postal code in A1A 1A1 format"
           rows={5}
         />
       </div>
