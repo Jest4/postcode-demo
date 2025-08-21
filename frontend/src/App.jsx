@@ -9,7 +9,7 @@ function App() {
   const handleSubmit = async () => {
     try {
       setLoading(true)
-      const endpoint = 'http://localhost:3000/api/postcode'
+      const endpoint = 'https://postcode.estany.ca/api/postcode'
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
