@@ -45,12 +45,23 @@ export const handler = async (event) => {
 };
 
 export const prefixToProvinceMap = {
+    'A': 'NL',
+    'B': 'NS',
+    'C': 'PE',
+    'E': 'NB',
+    'G': 'QC',
+    'H': 'QC',
+    'J': 'QC',
     'K': 'ON',
     'L': 'ON',
     'M': 'ON',
     'N': 'ON',
     'P': 'ON',
     'R': 'MB',
+    'S': 'SK',
+    'T': 'AB',
+    'V': 'BC',
+    'Y': 'YT',
     'X0A': 'NU',
     'X0B': 'NU',
     'X0C': 'NU',
